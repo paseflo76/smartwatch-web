@@ -1,4 +1,4 @@
-import { useParams, Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useParams } from 'react-router-dom'
 import {
   Badge,
   Box,
@@ -19,7 +19,7 @@ function Producto() {
 
   if (!producto) {
     return (
-      <Container maxW='1200px' py='16'>
+      <Container maxW='1000px' py='16' px='6'>
         <Heading size='xl' mb='4'>
           Producto no encontrado
         </Heading>
@@ -29,23 +29,24 @@ function Producto() {
         </Text>
 
         <Button asChild colorPalette='blue'>
-          <RouterLink to='/'>Volver al inicio</RouterLink>
+          <RouterLink to='/smartwatches'>Volver al catálogo</RouterLink>
         </Button>
       </Container>
     )
   }
 
   return (
-    <Container maxW='1000px' py={{ base: '10', md: '16' }} px='6'>
+    <Container maxW='1100px' py={{ base: '10', md: '16' }} px='6'>
       <Button asChild variant='outline' mb='8'>
-        <RouterLink to='/'>← Volver a los smartwatches</RouterLink>
+        <RouterLink to='/smartwatches'>← Volver al catálogo</RouterLink>
       </Button>
 
+      {/* INFORMACIÓN PRINCIPAL DEL PRODUCTO */}
       <SimpleGrid columns={{ base: 1, md: 2 }} gap='10'>
         <Box
           bg='gray.50'
-          borderRadius='xl'
-          minH='300px'
+          borderRadius='2xl'
+          minH='350px'
           display='flex'
           alignItems='center'
           justifyContent='center'
@@ -57,11 +58,14 @@ function Producto() {
               src={producto.imagen}
               alt={producto.nombre}
               maxW='100%'
-              maxH='350px'
+              maxH='400px'
               objectFit='contain'
             />
           ) : (
-            <Text color='gray.500'>Imagen próximamente</Text>
+            <VStack gap='3' color='gray.400'>
+              <Text fontSize='7xl'>⌚</Text>
+              <Text>Imagen próximamente</Text>
+            </VStack>
           )}
         </Box>
 
@@ -74,63 +78,156 @@ function Producto() {
             {producto.nombre}
           </Heading>
 
-          <Text color='gray.600' lineHeight='1.8'>
+          <Text color='gray.600' lineHeight='1.9'>
             {producto.descripcion}
           </Text>
 
-          <Heading size='md'>Características principales</Heading>
+          {/* CARACTERÍSTICAS */}
+          <Box borderTop='1px solid' borderColor='gray.200' pt='5'>
+            <Heading size='md' mb='4'>
+              Características principales
+            </Heading>
 
-          <Box>
-            <Text>
-              <strong>Pantalla:</strong> {producto.pantalla}
-            </Text>
+            <VStack align='stretch' gap='3'>
+              <Habilidad nombre='Pantalla' valor={producto.pantalla} />
 
-            <Text>
-              <strong>GPS:</strong>{' '}
-              {producto.gps ? 'Integrado' : 'No integrado'}
-            </Text>
+              <Habilidad
+                nombre='GPS'
+                valor={producto.gps ? 'Integrado' : 'No integrado'}
+              />
 
-            <Text>
-              <strong>Batería anunciada:</strong> {producto.bateria}
-            </Text>
+              <Habilidad
+                nombre='Autonomía anunciada'
+                valor={producto.bateria}
+              />
 
-            <Text>
-              <strong>Llamadas Bluetooth:</strong>{' '}
-              {producto.llamadas ? 'Sí' : 'No'}
-            </Text>
+              <Habilidad
+                nombre='Llamadas Bluetooth'
+                valor={producto.llamadas ? 'Sí' : 'No'}
+              />
 
-            <Text>
-              <strong>Categoría:</strong> {producto.categoria}
-            </Text>
+              <Habilidad nombre='Categoría' valor={producto.categoria} />
+            </VStack>
           </Box>
 
-          <Heading size='md'>Ventajas</Heading>
+          {/* BOTÓN DE AMAZON */}
+          {producto.enlaceAmazon && (
+            <Button asChild colorPalette='orange' size='lg' width='100%'>
+              <a
+                href={producto.enlaceAmazon}
+                target='_blank'
+                rel='nofollow sponsored noopener noreferrer'
+              >
+                Consultar en Amazon
+              </a>
+            </Button>
+          )}
 
-          <VStack align='stretch' gap='2'>
-            {producto.ventajas.map((ventaja) => (
-              <Text key={ventaja} color='gray.700'>
-                ✓ {ventaja}
-              </Text>
-            ))}
-          </VStack>
-
-          <Heading size='md'>Inconvenientes</Heading>
-
-          <VStack align='stretch' gap='2'>
-            {producto.inconvenientes.map((inconveniente) => (
-              <Text key={inconveniente} color='gray.700'>
-                − {inconveniente}
-              </Text>
-            ))}
-          </VStack>
-
-          <Text color='gray.500' fontSize='sm'>
-            El precio y la disponibilidad se añadirán cuando verifiquemos los
-            datos del producto.
+          <Text color='gray.500' fontSize='xs' lineHeight='1.7'>
+            Las especificaciones, el precio y la disponibilidad deben
+            comprobarse antes de comprar. La autonomía real puede variar según
+            el uso.
           </Text>
         </VStack>
       </SimpleGrid>
+
+      {/* VENTAJAS E INCONVENIENTES */}
+      <SimpleGrid
+        columns={{ base: 1, md: 2 }}
+        gap='6'
+        mt={{ base: '12', md: '16' }}
+      >
+        {/* VENTAJAS */}
+        <Box border='1px solid' borderColor='green.200' borderRadius='xl' p='6'>
+          <Heading size='lg' color='green.700' mb='5'>
+            Ventajas
+          </Heading>
+
+          <VStack align='stretch' gap='3'>
+            {producto.ventajas.map((ventaja) => (
+              <Box key={ventaja} display='flex' gap='2' alignItems='start'>
+                <Text color='green.600' fontWeight='bold'>
+                  ✓
+                </Text>
+
+                <Text color='gray.700' lineHeight='1.7'>
+                  {ventaja}
+                </Text>
+              </Box>
+            ))}
+          </VStack>
+        </Box>
+
+        {/* INCONVENIENTES */}
+        <Box
+          border='1px solid'
+          borderColor='orange.200'
+          borderRadius='xl'
+          p='6'
+        >
+          <Heading size='lg' color='orange.700' mb='5'>
+            Inconvenientes
+          </Heading>
+
+          <VStack align='stretch' gap='3'>
+            {producto.inconvenientes.map((inconveniente) => (
+              <Box
+                key={inconveniente}
+                display='flex'
+                gap='2'
+                alignItems='start'
+              >
+                <Text color='orange.600' fontWeight='bold'>
+                  −
+                </Text>
+
+                <Text color='gray.700' lineHeight='1.7'>
+                  {inconveniente}
+                </Text>
+              </Box>
+            ))}
+          </VStack>
+        </Box>
+      </SimpleGrid>
+
+      {/* ACCESO AL COMPARADOR */}
+      <Box bg='gray.50' borderRadius='xl' p='6' mt='8'>
+        <Heading size='md' mb='3'>
+          ¿Quieres comparar este reloj con otro?
+        </Heading>
+
+        <Text color='gray.600' mb='5' lineHeight='1.8'>
+          Consulta las diferencias entre modelos y decide qué características
+          son más importantes para ti.
+        </Text>
+
+        <Button asChild colorPalette='blue'>
+          <RouterLink to='/comparador'>Ir al comparador</RouterLink>
+        </Button>
+      </Box>
     </Container>
+  )
+}
+
+function Habilidad({ nombre, valor }) {
+  return (
+    <Box
+      display='flex'
+      justifyContent='space-between'
+      alignItems='start'
+      gap='4'
+      borderBottom='1px solid'
+      borderColor='gray.100'
+      pb='3'
+    >
+      <Text color='gray.500' fontSize='sm'>
+        {nombre}
+      </Text>
+
+      <Text color='gray.900' fontWeight='semibold' textAlign='right'>
+        {valor}
+      </Text>
+    </Box>
   )
 }
 

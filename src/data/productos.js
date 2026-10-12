@@ -4,22 +4,24 @@ export const productos = [
     nombre: 'Garmin Forerunner 265',
     marca: 'Garmin',
     precio: null,
+    moneda: 'EUR',
     pantalla: 'AMOLED',
     gps: true,
     bateria: 'Hasta 13 días',
     llamadas: false,
     categoria: 'Running',
     imagen: '',
+    enlaceAmazon: '',
     descripcion:
-      'Reloj deportivo con métricas avanzadas de entrenamiento y GPS.',
+      'Reloj deportivo orientado al entrenamiento, con métricas deportivas y funciones de posicionamiento por satélite.',
     ventajas: [
-      'Métricas de entrenamiento avanzadas',
-      'GPS multibanda',
+      'Funciones avanzadas de entrenamiento',
+      'GPS integrado',
       'Pantalla AMOLED'
     ],
     inconvenientes: [
-      'Precio superior al de muchos relojes de uso general',
-      'No permite realizar llamadas directamente desde el reloj'
+      'Puede resultar caro para un uso básico',
+      'No permite realizar llamadas Bluetooth desde el reloj'
     ]
   },
   {
@@ -27,21 +29,23 @@ export const productos = [
     nombre: 'Huawei Watch Fit 3',
     marca: 'Huawei',
     precio: null,
+    moneda: 'EUR',
     pantalla: 'AMOLED',
     gps: true,
     bateria: 'Hasta 10 días',
     llamadas: true,
     categoria: 'Uso diario y deporte',
     imagen: '',
+    enlaceAmazon: '',
     descripcion:
-      'Reloj ligero con pantalla AMOLED, seguimiento deportivo y llamadas Bluetooth.',
+      'Reloj ligero con pantalla AMOLED, seguimiento de actividad y funciones de llamadas Bluetooth.',
     ventajas: [
       'Diseño ligero',
       'Pantalla AMOLED',
       'Funciones para el día a día'
     ],
     inconvenientes: [
-      'Funciones deportivas menos avanzadas que las de algunos relojes especializados',
+      'Menos herramientas avanzadas de entrenamiento que algunos relojes deportivos especializados',
       'La autonomía real depende del uso'
     ]
   },
@@ -50,21 +54,23 @@ export const productos = [
     nombre: 'Amazfit Balance',
     marca: 'Amazfit',
     precio: null,
+    moneda: 'EUR',
     pantalla: 'AMOLED',
     gps: true,
     bateria: 'Hasta 14 días',
     llamadas: true,
     categoria: 'Uso diario y deporte',
     imagen: '',
+    enlaceAmazon: '',
     descripcion:
-      'Smartwatch con GPS, llamadas Bluetooth y herramientas de seguimiento de salud y actividad.',
+      'Smartwatch con seguimiento de actividad, GPS integrado y funciones de llamadas Bluetooth.',
     ventajas: [
-      'Amplias funciones de salud y actividad',
+      'Funciones de salud y actividad',
       'GPS integrado',
-      'Buena autonomía anunciada'
+      'Autonomía anunciada amplia'
     ],
     inconvenientes: [
-      'La precisión puede variar según la actividad',
+      'La precisión de las mediciones puede variar según la actividad',
       'La autonomía depende de las funciones activadas'
     ]
   }
