@@ -11,6 +11,15 @@ import {
 } from '@chakra-ui/react'
 
 import { productos } from '../../data/productos.js'
+import RadarComparacion from '../../components/RadarComparacion/RadarComparacion.jsx'
+
+function mostrarPrecio(producto) {
+  if (producto.precio === null || producto.precio === undefined) {
+    return 'Pendiente de verificar'
+  }
+
+  return `${Number(producto.precio).toFixed(2).replace('.', ',')} €`
+}
 
 function Comparador() {
   const [idProductoA, setIdProductoA] = useState(
@@ -31,30 +40,24 @@ function Comparador() {
 
   const caracteristicas = [
     {
-      nombre: 'Marca',
-      valor: (producto) => producto.marca
+      nombre: 'Precio',
+      valor: (producto) => mostrarPrecio(producto)
     },
-    {
-      nombre: 'Pantalla',
-      valor: (producto) => producto.pantalla
-    },
+    { nombre: 'Marca', valor: (producto) => producto.marca },
+    { nombre: 'Pantalla', valor: (producto) => producto.pantalla },
     {
       nombre: 'GPS integrado',
       valor: (producto) => (producto.gps ? 'Sí' : 'No')
     },
-    {
-      nombre: 'Batería anunciada',
-      valor: (producto) => producto.bateria
-    },
+    { nombre: 'Batería anunciada', valor: (producto) => producto.bateria },
     {
       nombre: 'Llamadas Bluetooth',
       valor: (producto) => (producto.llamadas ? 'Sí' : 'No')
     },
-    {
-      nombre: 'Categoría',
-      valor: (producto) => producto.categoria
-    }
+    { nombre: 'Categoría', valor: (producto) => producto.categoria }
   ]
+
+  const mismaSeleccion = productoA && productoB && productoA.id === productoB.id
 
   return (
     <Container maxW='1200px' py={{ base: '10', md: '16' }} px='6'>
@@ -75,8 +78,8 @@ function Comparador() {
           </Heading>
 
           <Text color='gray.600' maxW='750px' lineHeight='1.8'>
-            Selecciona dos modelos y consulta sus principales características
-            para descubrir cuál se adapta mejor a tus necesidades.
+            Selecciona dos modelos y compara sus puntuaciones, precios y
+            características principales.
           </Text>
         </Box>
 
@@ -130,49 +133,71 @@ function Comparador() {
               </Box>
             </SimpleGrid>
 
-            {productoA && productoB && (
-              <Box overflowX='auto' borderWidth='1px' borderRadius='xl'>
-                <Table.Root size='md' variant='line'>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.ColumnHeader>Característica</Table.ColumnHeader>
-
-                      <Table.ColumnHeader>
-                        {productoA.nombre}
-                      </Table.ColumnHeader>
-
-                      <Table.ColumnHeader>
-                        {productoB.nombre}
-                      </Table.ColumnHeader>
-                    </Table.Row>
-                  </Table.Header>
-
-                  <Table.Body>
-                    {caracteristicas.map((caracteristica) => (
-                      <Table.Row key={caracteristica.nombre}>
-                        <Table.Cell fontWeight='semibold'>
-                          {caracteristica.nombre}
-                        </Table.Cell>
-
-                        <Table.Cell>
-                          {caracteristica.valor(productoA)}
-                        </Table.Cell>
-
-                        <Table.Cell>
-                          {caracteristica.valor(productoB)}
-                        </Table.Cell>
-                      </Table.Row>
-                    ))}
-                  </Table.Body>
-                </Table.Root>
-              </Box>
-            )}
-
-            {productoA && productoB && productoA.id === productoB.id && (
+            {mismaSeleccion && (
               <Text color='orange.600' fontSize='sm'>
                 Has seleccionado el mismo reloj en las dos columnas. Elige otro
                 modelo para realizar una comparación útil.
               </Text>
+            )}
+
+            {productoA && productoB && !mismaSeleccion && (
+              <>
+                <Box
+                  border='1px solid'
+                  borderColor='gray.200'
+                  borderRadius='2xl'
+                  p={{ base: '3', md: '6' }}
+                >
+                  <RadarComparacion
+                    productos={[productoA, productoB]}
+                    titulo='Comparativa visual de prestaciones'
+                  />
+                </Box>
+
+                <Box>
+                  <Heading size='lg' mb='4'>
+                    Comparación de características
+                  </Heading>
+
+                  <Box overflowX='auto' borderWidth='1px' borderRadius='xl'>
+                    <Table.Root size='md' variant='line'>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.ColumnHeader>
+                            Característica
+                          </Table.ColumnHeader>
+
+                          <Table.ColumnHeader>
+                            {productoA.nombre}
+                          </Table.ColumnHeader>
+
+                          <Table.ColumnHeader>
+                            {productoB.nombre}
+                          </Table.ColumnHeader>
+                        </Table.Row>
+                      </Table.Header>
+
+                      <Table.Body>
+                        {caracteristicas.map((caracteristica) => (
+                          <Table.Row key={caracteristica.nombre}>
+                            <Table.Cell fontWeight='semibold'>
+                              {caracteristica.nombre}
+                            </Table.Cell>
+
+                            <Table.Cell>
+                              {caracteristica.valor(productoA)}
+                            </Table.Cell>
+
+                            <Table.Cell>
+                              {caracteristica.valor(productoB)}
+                            </Table.Cell>
+                          </Table.Row>
+                        ))}
+                      </Table.Body>
+                    </Table.Root>
+                  </Box>
+                </Box>
+              </>
             )}
           </>
         )}

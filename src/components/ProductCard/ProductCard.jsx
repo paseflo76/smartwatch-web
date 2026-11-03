@@ -25,6 +25,7 @@ function ProductCard({ producto }) {
         boxShadow: 'lg'
       }}
     >
+      {/* IMAGEN */}
       <Box
         bg='gray.50'
         h='220px'
@@ -51,15 +52,19 @@ function ProductCard({ producto }) {
       </Box>
 
       <VStack align='stretch' p='5' gap='4'>
+        {/* MARCA Y CATEGORÍA */}
         <HStack justify='space-between' wrap='wrap'>
           <Badge colorPalette='blue'>{producto.marca}</Badge>
+
           <Badge colorPalette='gray'>{producto.categoria}</Badge>
         </HStack>
 
+        {/* NOMBRE */}
         <Heading size='md' color='gray.900' minH='48px'>
           {producto.nombre}
         </Heading>
 
+        {/* CARACTERÍSTICAS */}
         <SimpleGrid columns={2} gap='4'>
           <Box>
             <Text fontSize='xs' color='gray.500' mb='1'>
@@ -98,10 +103,29 @@ function ProductCard({ producto }) {
           </Box>
         </SimpleGrid>
 
+        {/* PRECIO */}
+        <Box bg='gray.50' borderRadius='lg' p='3'>
+          <Text fontSize='xs' color='gray.500'>
+            Precio
+          </Text>
+
+          {producto.precio !== null && producto.precio !== undefined ? (
+            <Heading size='lg' color='gray.900'>
+              {Number(producto.precio).toFixed(2).replace('.', ',')} €
+            </Heading>
+          ) : (
+            <Text color='gray.500' fontSize='sm'>
+              Precio pendiente de verificar
+            </Text>
+          )}
+        </Box>
+
+        {/* DESCRIPCIÓN */}
         <Text color='gray.600' fontSize='sm' lineHeight='1.8'>
           {producto.descripcion}
         </Text>
 
+        {/* BOTONES */}
         <Button asChild colorPalette='blue' width='100%'>
           <RouterLink to={`/producto/${producto.id}`}>
             Ver análisis completo
