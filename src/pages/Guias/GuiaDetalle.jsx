@@ -1,13 +1,5 @@
 import { Link as RouterLink, useParams } from 'react-router-dom'
-import {
-  Box,
-  Button,
-  Container,
-  Heading,
-  List,
-  Text,
-  VStack
-} from '@chakra-ui/react'
+import { Box, Button, Container, Heading, Text, VStack } from '@chakra-ui/react'
 
 const contenidos = {
   'elegir-smartwatch': {
@@ -42,6 +34,7 @@ const contenidos = {
       }
     ]
   },
+
   'smartwatch-deporte': {
     titulo: 'Qué smartwatch elegir para hacer deporte',
     introduccion:
@@ -69,6 +62,7 @@ const contenidos = {
       }
     ]
   },
+
   'bateria-smartwatch': {
     titulo: 'La batería de un smartwatch: qué debes saber',
     introduccion:
@@ -96,6 +90,7 @@ const contenidos = {
       }
     ]
   },
+
   'gps-smartwatch': {
     titulo: 'GPS en un smartwatch: cómo elegir bien',
     introduccion:

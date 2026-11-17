@@ -1,4 +1,5 @@
 import { Link as RouterLink, useParams } from 'react-router-dom'
+
 import {
   Badge,
   Box,
@@ -11,7 +12,27 @@ import {
 } from '@chakra-ui/react'
 
 import { productos } from '../../data/productos.js'
+
 import RadarComparacion from '../../components/RadarComparacion/RadarComparacion.jsx'
+
+const nombresTecnicos = {
+  pantalla: 'Pantalla',
+  resolucion: 'Resolución',
+  peso: 'Peso',
+  resistenciaAgua: 'Resistencia al agua',
+  bateriaSmartwatch: 'Autonomía en uso normal',
+  bateriaGps: 'Autonomía con GPS',
+  bateriaGpsMultibanda: 'Autonomía GPS multibanda',
+  bateriaIntensivo: 'Autonomía en uso intensivo',
+  gps: 'Sistemas GPS',
+  sensores: 'Sensores',
+  deporte: 'Modos deportivos',
+  entrenamiento: 'Funciones de entrenamiento',
+  conectividad: 'Conectividad',
+  funcionesInteligentes: 'Funciones inteligentes',
+  llamadas: 'Llamadas',
+  compatibilidad: 'Compatibilidad'
+}
 
 function Producto() {
   const { id } = useParams()
@@ -37,11 +58,12 @@ function Producto() {
   }
 
   return (
-    <Container maxW='1100px' py={{ base: '10', md: '16' }} px='6'>
+    <Container maxW='1150px' py={{ base: '10', md: '16' }} px='6'>
       <Button asChild variant='outline' mb='8'>
         <RouterLink to='/smartwatches'>← Volver al catálogo</RouterLink>
       </Button>
 
+      {/* INFORMACIÓN PRINCIPAL */}
       <SimpleGrid columns={{ base: 1, md: 2 }} gap='10'>
         <Box
           bg='gray.50'
@@ -62,10 +84,7 @@ function Producto() {
               objectFit='contain'
             />
           ) : (
-            <VStack gap='3' color='gray.400'>
-              <Text fontSize='7xl'>⌚</Text>
-              <Text>Imagen próximamente</Text>
-            </VStack>
+            <Text fontSize='7xl'>⌚</Text>
           )}
         </Box>
 
@@ -97,26 +116,30 @@ function Producto() {
             )}
           </Box>
 
-          {/* CARACTERÍSTICAS */}
-          <Box borderTop='1px solid' borderColor='gray.200' pt='5'>
+          {/* CARACTERÍSTICAS BÁSICAS */}
+          <Box>
             <Heading size='md' mb='4'>
               Características principales
             </Heading>
 
             <VStack align='stretch' gap='3'>
               <Habilidad nombre='Pantalla' valor={producto.pantalla} />
+
               <Habilidad
                 nombre='GPS'
                 valor={producto.gps ? 'Integrado' : 'No integrado'}
               />
+
               <Habilidad
                 nombre='Autonomía anunciada'
                 valor={producto.bateria}
               />
+
               <Habilidad
                 nombre='Llamadas Bluetooth'
                 valor={producto.llamadas ? 'Sí' : 'No'}
               />
+
               <Habilidad nombre='Categoría' valor={producto.categoria} />
             </VStack>
           </Box>
@@ -135,12 +158,12 @@ function Producto() {
 
           <Text color='gray.500' fontSize='xs' lineHeight='1.7'>
             Los precios y la disponibilidad pueden cambiar. Comprueba siempre el
-            importe final en la tienda antes de comprar.
+            importe final en la tienda.
           </Text>
         </VStack>
       </SimpleGrid>
 
-      {/* VALORACIÓN VISUAL */}
+      {/* VALORACIÓN Y GRÁFICO */}
       <Box
         border='1px solid'
         borderColor='gray.200'
@@ -154,12 +177,62 @@ function Producto() {
         />
       </Box>
 
+      {/* FICHA TÉCNICA COMPLETA */}
+      <Box mt='14'>
+        <Heading size='xl' mb='3'>
+          Ficha técnica completa
+        </Heading>
+
+        <Text color='gray.600' mb='6' lineHeight='1.8'>
+          Consulta las especificaciones y funciones principales del{' '}
+          {producto.nombre}.
+        </Text>
+
+        <Box
+          border='1px solid'
+          borderColor='gray.200'
+          borderRadius='xl'
+          overflow='hidden'
+        >
+          {Object.entries(producto.datosTecnicos || {}).map(
+            ([clave, valor], index) => (
+              <Box
+                key={clave}
+                display='grid'
+                gridTemplateColumns={{
+                  base: '1fr',
+                  md: '220px 1fr'
+                }}
+                gap='2'
+                p='4'
+                bg={index % 2 === 0 ? 'gray.50' : 'white'}
+                borderBottom={
+                  index === Object.keys(producto.datosTecnicos).length - 1
+                    ? 'none'
+                    : '1px solid'
+                }
+                borderColor='gray.200'
+              >
+                <Text fontWeight='semibold' color='gray.700' fontSize='sm'>
+                  {nombresTecnicos[clave] || clave}
+                </Text>
+
+                <Text color='gray.600' fontSize='sm' lineHeight='1.8'>
+                  {valor}
+                </Text>
+              </Box>
+            )
+          )}
+        </Box>
+
+        <Text color='gray.500' fontSize='xs' mt='3'>
+          Las especificaciones pueden variar según la versión, el mercado y las
+          actualizaciones del fabricante.
+        </Text>
+      </Box>
+
       {/* VENTAJAS E INCONVENIENTES */}
-      <SimpleGrid
-        columns={{ base: 1, md: 2 }}
-        gap='6'
-        mt={{ base: '12', md: '16' }}
-      >
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap='6' mt='14'>
         <Box border='1px solid' borderColor='green.200' borderRadius='xl' p='6'>
           <Heading size='lg' color='green.700' mb='5'>
             Ventajas
@@ -167,11 +240,14 @@ function Producto() {
 
           <VStack align='stretch' gap='3'>
             {producto.ventajas.map((ventaja) => (
-              <Box key={ventaja} display='flex' gap='2'>
+              <Box key={ventaja} display='flex' gap='2' alignItems='start'>
                 <Text color='green.600' fontWeight='bold'>
                   ✓
                 </Text>
-                <Text color='gray.700'>{ventaja}</Text>
+
+                <Text color='gray.700' lineHeight='1.7'>
+                  {ventaja}
+                </Text>
               </Box>
             ))}
           </VStack>
@@ -189,25 +265,34 @@ function Producto() {
 
           <VStack align='stretch' gap='3'>
             {producto.inconvenientes.map((inconveniente) => (
-              <Box key={inconveniente} display='flex' gap='2'>
+              <Box
+                key={inconveniente}
+                display='flex'
+                gap='2'
+                alignItems='start'
+              >
                 <Text color='orange.600' fontWeight='bold'>
                   −
                 </Text>
-                <Text color='gray.700'>{inconveniente}</Text>
+
+                <Text color='gray.700' lineHeight='1.7'>
+                  {inconveniente}
+                </Text>
               </Box>
             ))}
           </VStack>
         </Box>
       </SimpleGrid>
 
-      <Box bg='gray.50' borderRadius='xl' p='6' mt='8'>
+      {/* ACCESO AL COMPARADOR */}
+      <Box bg='gray.50' borderRadius='xl' p='6' mt='10'>
         <Heading size='md' mb='3'>
           ¿Quieres comparar este reloj con otro?
         </Heading>
 
         <Text color='gray.600' mb='5' lineHeight='1.8'>
-          Consulta las diferencias entre modelos y decide qué características
-          son más importantes para ti.
+          Compara sus prestaciones, puntuaciones y características para conocer
+          las diferencias entre modelos.
         </Text>
 
         <Button asChild colorPalette='blue'>

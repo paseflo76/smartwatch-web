@@ -3,7 +3,7 @@ export const productos = [
     id: 1,
     nombre: 'Garmin Forerunner 265',
     marca: 'Garmin',
-    precio: 317.19,
+    precio: null,
     moneda: 'EUR',
     pantalla: 'AMOLED',
     gps: true,
@@ -12,17 +12,24 @@ export const productos = [
     categoria: 'Running',
     imagen: '/assets/Garmin-Forerunner-265.jpg',
     enlaceAmazon: '',
+
     descripcion:
-      'Reloj deportivo orientado al entrenamiento, con métricas deportivas y funciones de posicionamiento por satélite.',
+      'Reloj deportivo avanzado orientado al running y al entrenamiento. Incorpora GPS multibanda, métricas de rendimiento, seguimiento de recuperación y herramientas para planificar entrenamientos.',
+
     ventajas: [
-      'Funciones avanzadas de entrenamiento',
-      'GPS integrado',
-      'Pantalla AMOLED'
+      'GPS multibanda con tecnología SatIQ',
+      'Métricas avanzadas de entrenamiento y recuperación',
+      'Pantalla AMOLED',
+      'Hasta 20 horas de GPS solo',
+      'Garmin Pay y almacenamiento de música'
     ],
+
     inconvenientes: [
-      'Puede resultar caro para un uso básico',
-      'No permite realizar llamadas Bluetooth desde el reloj'
+      'No permite realizar llamadas Bluetooth desde el reloj',
+      'La autonomía disminuye considerablemente utilizando GPS multibanda',
+      'Puede resultar excesivo para usuarios que solo buscan funciones básicas'
     ],
+
     puntuaciones: {
       bateria: 7,
       gps: 9,
@@ -33,40 +40,67 @@ export const productos = [
     },
 
     datosTecnicos: {
+      pantalla: 'AMOLED de 1,3 pulgadas',
+      resolucion: '416 x 416 píxeles',
+      peso: '47 gramos',
+      resistenciaAgua: '5 ATM',
+
       bateriaSmartwatch: 'Hasta 13 días',
-      bateriaGps: 'Hasta 20 horas en modo GPS',
-      gps: 'Multibanda y varios sistemas GNSS',
+      bateriaGps: 'Hasta 20 horas en GPS solo',
+      bateriaGpsMultibanda:
+        'Hasta 14 horas con todos los sistemas y multibanda',
+
+      gps: 'GPS, GLONASS, Galileo, BeiDou y QZSS. Multibanda y SatIQ',
+
       sensores:
-        'Frecuencia cardiaca, pulsioxímetro, acelerómetro, giroscopio y brújula',
+        'Frecuencia cardiaca Garmin Elevate, pulsioxímetro, acelerómetro, giroscopio, brújula, altímetro barométrico, termómetro y sensor de luz ambiental',
+
       deporte:
-        'Entrenamiento avanzado, carga, recuperación y métricas de carrera',
+        'Running, trail running, ciclismo, natación, triatlón, fuerza, HIIT, yoga y otros perfiles deportivos',
+
+      entrenamiento:
+        'VO2 máximo, carga de entrenamiento, efecto del entrenamiento, tiempo de recuperación, HRV, PacePro y entrenamientos diarios recomendados',
+
       conectividad: 'Bluetooth, ANT+ y Wi-Fi',
-      funcionesInteligentes: 'Notificaciones, música, Garmin Pay y Connect IQ'
+
+      funcionesInteligentes:
+        'Notificaciones, Garmin Pay, almacenamiento de música, Connect IQ y control de música',
+
+      llamadas: 'No dispone de micrófono ni altavoz para llamadas Bluetooth',
+
+      compatibilidad: 'Android e iOS'
     }
   },
+
   {
     id: 2,
     nombre: 'Huawei Watch Fit 3',
     marca: 'Huawei',
-    precio: 150,
+    precio: null,
     moneda: 'EUR',
     pantalla: 'AMOLED',
     gps: true,
-    bateria: 'Hasta 10 días',
+    bateria: 'Hasta 7 días (uso típico)',
     llamadas: true,
     categoria: 'Uso diario y deporte',
     imagen: '/assets/Huawei-Watch-Fit-3.jpg',
     enlaceAmazon: '',
+
     descripcion:
-      'Reloj ligero con pantalla AMOLED, seguimiento de actividad y funciones de llamadas Bluetooth.',
+      'Smartwatch ligero con diseño rectangular, pantalla AMOLED, GPS integrado y funciones de seguimiento de actividad, salud y llamadas Bluetooth. Está orientado al uso diario y al deporte general.',
+
     ventajas: [
-      'Diseño ligero',
-      'Pantalla AMOLED',
-      'Funciones para el día a día'
+      'Diseño ligero de aproximadamente 26 gramos sin correa',
+      'Pantalla AMOLED de 1,82 pulgadas',
+      'GPS integrado',
+      'Llamadas Bluetooth',
+      'Hasta 10 días de autonomía máxima y 7 días de uso típico'
     ],
+
     inconvenientes: [
-      'Menos herramientas avanzadas de entrenamiento que algunos relojes deportivos especializados',
-      'La autonomía real depende del uso'
+      'Menos métricas avanzadas de entrenamiento que el Garmin Forerunner 265',
+      'Autonomía inferior con la pantalla siempre encendida',
+      'La conectividad NFC depende de la versión y el acabado'
     ],
 
     puntuaciones: {
@@ -79,21 +113,45 @@ export const productos = [
     },
 
     datosTecnicos: {
-      bateriaSmartwatch: 'Hasta 10 días; 7 días de uso típico según Huawei',
-      bateriaGps: 'Autonomía variable según el uso del GPS',
-      gps: 'GPS integrado',
-      sensores: 'Frecuencia cardiaca, acelerómetro, giroscopio y magnetómetro',
-      deporte: 'Seguimiento de actividad y modos deportivos',
+      pantalla: 'AMOLED de 1,82 pulgadas',
+      resolucion: '480 x 408 píxeles',
+      peso: 'Aproximadamente 26 gramos sin correa',
+      resistenciaAgua: '5 ATM',
+
+      bateriaSmartwatch:
+        'Hasta 10 días en condiciones máximas y 7 días de uso típico',
+
+      bateriaGps:
+        'No se especifica una autonomía GPS independiente en la ficha técnica consultada',
+
+      gps: 'GPS integrado para registrar actividades al aire libre',
+
+      sensores:
+        'Sensor IMU de 9 ejes (acelerómetro, giroscopio y magnetómetro), sensor óptico de frecuencia cardiaca y sensor de luz ambiental',
+
+      deporte:
+        'Seguimiento de actividad física, entrenamiento al aire libre, carrera, ciclismo, natación y otros modos deportivos',
+
+      entrenamiento:
+        'Seguimiento de frecuencia cardiaca, actividad, sueño, estrés y oxígeno en sangre',
+
       conectividad: 'Bluetooth 5.2 y NFC en determinadas versiones',
+
       funcionesInteligentes:
-        'Notificaciones, llamadas Bluetooth y control de música'
+        'Notificaciones, llamadas Bluetooth, control de música y funciones de salud',
+
+      llamadas:
+        'Permite realizar y recibir llamadas Bluetooth conectado al teléfono',
+
+      compatibilidad: 'Android 8.0 o posterior e iOS 13.0 o posterior'
     }
   },
+
   {
     id: 3,
     nombre: 'Amazfit Balance',
     marca: 'Amazfit',
-    precio: 205.83,
+    precio: null,
     moneda: 'EUR',
     pantalla: 'AMOLED',
     gps: true,
@@ -102,18 +160,22 @@ export const productos = [
     categoria: 'Uso diario y deporte',
     imagen: '/assets/Amazfit-Balance.jpg',
     enlaceAmazon: '',
+
     descripcion:
-      'Smartwatch con seguimiento de actividad, GPS integrado y funciones de llamadas Bluetooth.',
+      'Smartwatch equilibrado entre deporte, salud y uso diario. Incorpora GPS de doble banda, numerosos modos deportivos, seguimiento avanzado de salud, llamadas Bluetooth y funciones inteligentes mediante Zepp OS.',
 
     ventajas: [
-      'Funciones de salud y actividad',
-      'GPS integrado',
-      'Autonomía anunciada amplia'
+      'Hasta 14 días de autonomía en uso típico',
+      'GPS de doble banda con seis sistemas de posicionamiento',
+      '156 modos deportivos',
+      'Llamadas Bluetooth',
+      'Funciones avanzadas de salud y composición corporal'
     ],
 
     inconvenientes: [
-      'La precisión de las mediciones puede variar según la actividad',
-      'La autonomía depende de las funciones activadas'
+      'La autonomía disminuye con uso intensivo y pantalla siempre encendida',
+      'Algunas funciones y servicios dependen de la aplicación Zepp',
+      'No alcanza la profundidad de análisis deportivo de Garmin en determinados entrenamientos'
     ],
 
     puntuaciones: {
@@ -126,16 +188,34 @@ export const productos = [
     },
 
     datosTecnicos: {
-      bateriaSmartwatch: 'Hasta 14 días de uso típico',
+      pantalla: 'AMOLED de 1,5 pulgadas',
+      resolucion: '480 x 480 píxeles',
+      peso: '35 gramos sin correa',
+      resistenciaAgua: '5 ATM',
+
+      bateriaSmartwatch: 'Hasta 14 días en uso típico',
+      bateriaIntensivo: 'Hasta 7 días en uso intensivo',
       bateriaGps: 'Hasta 26 horas en modo GPS preciso',
-      gps: 'Doble banda y seis sistemas de posicionamiento',
+
+      gps: 'GPS de doble banda con seis sistemas de posicionamiento por satélite',
+
       sensores:
-        'BioTracker 5.0, sensor de impedancia bioeléctrica, acelerómetro, giroscopio y sensor geomagnético',
+        'BioTracker 5.0 PPG, sensor de impedancia bioeléctrica, acelerómetro, giroscopio, sensor geomagnético, barómetro, sensor de luz ambiental y sensor de temperatura',
+
       deporte:
-        'Más de 150 modos deportivos, Zepp Coach y métricas de entrenamiento',
-      conectividad: 'Bluetooth 5.0 y Wi-Fi',
+        '156 modos deportivos, entrenamiento de fuerza, carrera, ciclismo, natación y otras actividades',
+
+      entrenamiento:
+        'Zepp Coach, PeakBeats, métricas deportivas, navegación de rutas y entrenamiento por intervalos',
+
+      conectividad: 'Bluetooth 5.0 y Wi-Fi 2,4 GHz',
+
       funcionesInteligentes:
-        'Llamadas Bluetooth, Alexa, Zepp Pay y aplicaciones descargables'
+        'Llamadas Bluetooth, Zepp Flow, Alexa, Zepp Pay, aplicaciones, almacenamiento de música y notificaciones',
+
+      llamadas: 'Permite realizar y recibir llamadas Bluetooth',
+
+      compatibilidad: 'Android 7.0 o posterior e iOS 14.0 o posterior'
     }
   }
 ]
