@@ -32,7 +32,7 @@ const categorias = [
 const perfiles = {
   equilibrado: {
     nombre: 'Equilibrado',
-    descripcion: 'Todas las características tienen el mismo peso.',
+    descripcion: 'Las seis categorías tienen la misma importancia.',
     pesos: {
       bateria: 1,
       gps: 1,
@@ -45,7 +45,7 @@ const perfiles = {
 
   deportivo: {
     nombre: 'Deportivo',
-    descripcion: 'Prioriza GPS, sensores y entrenamiento.',
+    descripcion: 'Prioriza GPS, sensores y prestaciones deportivas.',
     pesos: {
       bateria: 1,
       gps: 2.5,
@@ -58,7 +58,8 @@ const perfiles = {
 
   diario: {
     nombre: 'Uso diario',
-    descripcion: 'Prioriza batería, conectividad y funciones inteligentes.',
+    descripcion:
+      'Prioriza batería, sensores, conectividad y funciones inteligentes.',
     pesos: {
       bateria: 2.5,
       gps: 1,
@@ -71,18 +72,32 @@ const perfiles = {
 }
 
 function calcularValoracion(puntuaciones, perfil) {
-  const pesos = perfil.pesos
+  if (!puntuaciones || !perfil) {
+    return null
+  }
 
   let sumaPuntuaciones = 0
   let sumaPesos = 0
 
   categorias.forEach((categoria) => {
-    const peso = pesos[categoria.clave]
     const puntuacion = puntuaciones[categoria.clave]
+    const peso = perfil.pesos[categoria.clave]
 
-    sumaPuntuaciones += puntuacion * peso
-    sumaPesos += peso
+    if (
+      Number.isFinite(puntuacion) &&
+      puntuacion >= 0 &&
+      puntuacion <= 10 &&
+      Number.isFinite(peso) &&
+      peso > 0
+    ) {
+      sumaPuntuaciones += puntuacion * peso
+      sumaPesos += peso
+    }
   })
+
+  if (sumaPesos === 0) {
+    return null
+  }
 
   return (sumaPuntuaciones / sumaPesos).toFixed(1).replace('.', ',')
 }
@@ -98,12 +113,13 @@ function RadarComparacion({
   const modelosValidos = modelos.filter(
     (producto) =>
       producto?.puntuaciones &&
-      categorias.every(
-        (categoria) =>
-          Number.isFinite(producto.puntuaciones[categoria.clave]) &&
-          producto.puntuaciones[categoria.clave] >= 0 &&
-          producto.puntuaciones[categoria.clave] <= 10
-      )
+      categorias.every((categoria) => {
+        const puntuacion = producto.puntuaciones[categoria.clave]
+
+        return (
+          Number.isFinite(puntuacion) && puntuacion >= 0 && puntuacion <= 10
+        )
+      })
   )
 
   if (modelosValidos.length === 0) {
@@ -134,7 +150,6 @@ function RadarComparacion({
     <VStack align='stretch' gap='5' width='100%'>
       <Heading size='lg'>{titulo}</Heading>
 
-      {/* SELECTOR DE PERFIL */}
       <Box>
         <Text fontWeight='semibold' mb='2'>
           Tipo de valoración
@@ -157,7 +172,6 @@ function RadarComparacion({
         </Text>
       </Box>
 
-      {/* GRÁFICO DE RADAR */}
       <Box width='100%' height={{ base: '320px', md: '430px' }}>
         <ResponsiveContainer width='100%' height='100%'>
           <RadarChart data={datos} outerRadius='70%'>
@@ -177,7 +191,7 @@ function RadarComparacion({
 
             {modelosValidos.map((producto, index) => (
               <Radar
-                key={producto.id}
+                key={producto.id ?? producto.nombre}
                 name={producto.nombre}
                 dataKey={`modelo${index}`}
                 stroke={colores[index % colores.length]}
@@ -194,11 +208,10 @@ function RadarComparacion({
         </ResponsiveContainer>
       </Box>
 
-      {/* PUNTUACIONES INDIVIDUALES */}
       <SimpleGrid columns={{ base: 1, md: modelosValidos.length }} gap='4'>
         {modelosValidos.map((producto) => (
           <Box
-            key={producto.id}
+            key={producto.id ?? producto.nombre}
             border='1px solid'
             borderColor='gray.200'
             borderRadius='xl'
@@ -254,6 +267,12 @@ function RadarComparacion({
           </Box>
         ))}
       </SimpleGrid>
+
+      <Text color='gray.500' fontSize='xs'>
+        Las valoraciones son puntuaciones editoriales de Smartwatch Lab. El
+        perfil seleccionado modifica la ponderación de la nota global, pero no
+        las puntuaciones individuales ni el gráfico de radar.
+      </Text>
     </VStack>
   )
 }
